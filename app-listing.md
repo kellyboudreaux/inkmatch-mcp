@@ -4,7 +4,7 @@
 InkMatch
 
 ## Short Description
-Get AI-generated tattoo designs personalized to your style, meaning, and placement. See a preview instantly, then unlock 5 full designs with AR try-on for $0.99.
+Get AI-generated tattoo designs personalized to your style, meaning, and placement. See a preview instantly, then unlock 5 full designs for $0.99.
 
 ## Full Description
 InkMatch is an AI tattoo design generator that creates personalized concepts based on what matters to you. Tell ChatGPT about the style you love, the meaning behind your tattoo, where you want it placed, and the vibe you're going for. InkMatch generates a preview design right in the conversation.
@@ -15,8 +15,7 @@ Unlike generic image generators, InkMatch is built specifically for tattoo desig
 1. Describe your tattoo idea to ChatGPT (style, meaning, placement, vibe)
 2. InkMatch generates a preview design based on your preferences
 3. Like the direction? Get 5 full personalized designs for just $0.99
-4. Use AR try-on to see designs on your actual body
-5. Download and share with your tattoo artist
+4. Download and share with your tattoo artist
 
 Perfect for first-timers who don't know where to start, or experienced collectors looking for fresh ideas. No more scrolling Pinterest for hours or struggling to describe your vision to artists.
 
@@ -28,7 +27,6 @@ Lifestyle
 - **Style-aware generation** - 12 distinct tattoo styles from Traditional to Biomechanical
 - **Meaning-driven design** - Incorporates your personal symbolism and story
 - **Placement optimization** - Designs suited for your chosen body location
-- **AR body try-on** - See exactly how it looks on YOU before committing
 - **Flash-ready output** - Clean designs your artist can work from
 - **No subscription** - One-time $0.99 for 5 full designs
 
@@ -69,7 +67,7 @@ United States (initial launch)
    - InkMatch generates and displays a preview image
    - Preference tags show your selections (style, meaning, etc.)
    - "Get 5 Full Designs" button links to inkmatch.io with params preserved
-   - Features list displays (5 designs, AR try-on, etc.)
+   - Features list displays (5 designs, download & share, etc.)
 
 ### Style Exploration
 4. Ask: "What tattoo styles are there?"

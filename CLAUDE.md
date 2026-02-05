@@ -90,7 +90,7 @@ Suggests styles based on user's described preferences and aesthetic taste.
 4. InkMatch calls Replicate API → generates 1 preview image (~$0.003)
 5. Widget displays preview + preference tags + CTA
 6. User clicks "Get 5 Full Designs" → redirects to inkmatch.io with params
-7. User pays $0.99 → receives 5 full designs + AR try-on
+7. User pays $0.99 → receives 5 full designs
 
 ---
 
