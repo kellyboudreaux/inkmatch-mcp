@@ -119,10 +119,10 @@
 
   <div class="controls">
     <h3>Test Different Scenarios</h3>
-    <button onclick="loadScenario('minimalist')">Minimalist + Image</button>
-    <button onclick="loadScenario('japanese')">Japanese (No Image)</button>
-    <button onclick="loadScenario('watercolor')">Watercolor + Image</button>
-    <button onclick="loadScenario('blackwork')">Blackwork + Image</button>
+    <button onclick="loadScenario('minimalist')">Minimalist</button>
+    <button onclick="loadScenario('japanese')">Japanese</button>
+    <button onclick="loadScenario('watercolor')">Watercolor</button>
+    <button onclick="loadScenario('blackwork')">Blackwork</button>
   </div>
 
   <div class="test-grid">
@@ -159,7 +159,7 @@
 const SCENARIOS = {
   minimalist: {
     title: "Minimalist Style",
-    desc: "With generated image preview",
+    desc: "Delicate fine line on forearm",
     data: {
       style: "Minimalist",
       style_key: "minimalist",
@@ -169,32 +169,31 @@ const SCENARIOS = {
       placement: "forearm",
       size: "small",
       color_preference: "black_and_gray",
-      // Real Replicate-generated tattoo image
-      image_url: "https://replicate.delivery/yhqm/qeSB63C9C0wJBCroUfUbfnxHWDLKUwlW6b5epflln0Q4jZlwC/out-0.png",
+      image_url: "https://replicate.delivery/yhqm/xmJGgLmOKrKaF1XKzvqSof4y63wWCetksmFA74VpW6NhhrEWA/out-0.png",
       inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=minimalist&meaning=New%20beginnings%20and%20personal%20growth&tone=soft&placement=forearm&size=small&color=black_and_gray",
       generated: true,
     }
   },
   japanese: {
     title: "Japanese / Irezumi",
-    desc: "Fallback state - no image generated",
+    desc: "Traditional koi on back",
     data: {
       style: "Japanese / Irezumi",
       style_key: "japanese",
       meaning: "Strength and perseverance through adversity",
       tone: "bold",
       elements: "koi fish swimming upstream, waves, cherry blossoms",
-      placement: "upper arm",
+      placement: "back",
       size: "large",
       color_preference: "full_color",
-      image_url: null,
-      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=japanese&meaning=Strength%20and%20perseverance&tone=bold&placement=upper%20arm&size=large&color=full_color",
-      generated: false,
+      image_url: "https://replicate.delivery/yhqm/YljlRICYon4PKtDEeSgSMSeFWroiwP1fmpiU0ed9bOm8MuSYB/out-0.png",
+      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=japanese&meaning=Strength%20and%20perseverance&tone=bold&placement=back&size=large&color=full_color",
+      generated: true,
     }
   },
   watercolor: {
     title: "Watercolor Style",
-    desc: "Soft, artistic feel with color splashes",
+    desc: "Artistic butterfly on shoulder",
     data: {
       style: "Watercolor",
       style_key: "watercolor",
@@ -204,25 +203,25 @@ const SCENARIOS = {
       placement: "shoulder",
       size: "medium",
       color_preference: "full_color",
-      image_url: "https://replicate.delivery/yhqm/frO8HUpkA2xlfUfjkwtJgSo5p386kpmpyiHJhiGyD5NOesSYB/out-0.png",
+      image_url: "https://replicate.delivery/yhqm/BQnLh3pXtYKPEBe0ZEzh9jXO7KjmaEbwbkLIYaeJDAVRjrEWA/out-0.png",
       inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=watercolor&meaning=Freedom%20and%20creativity&tone=playful&placement=shoulder&size=medium&color=full_color",
       generated: true,
     }
   },
   blackwork: {
     title: "Blackwork",
-    desc: "Bold, graphic black ink design",
+    desc: "Bold geometric wolf on arm",
     data: {
       style: "Blackwork",
       style_key: "blackwork",
       meaning: "Protection and inner strength",
       tone: "fierce",
       elements: "geometric wolf, tribal patterns, bold shapes",
-      placement: "chest",
+      placement: "upper arm",
       size: "large",
       color_preference: "black_and_gray",
-      image_url: "https://replicate.delivery/yhqm/WPbmcNARg1okA9xsM9rRiYAdwI5EcDTUPvP0V60xqgf5nVCLA/out-0.png",
-      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=blackwork&meaning=Protection%20and%20inner%20strength&tone=fierce&placement=chest&size=large&color=black_and_gray",
+      image_url: "https://replicate.delivery/yhqm/8fe80LkjfzHtUplGDlZ5HoAnwNpKYdPyqVqdoh76llSpGXJsA/out-0.png",
+      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=blackwork&meaning=Protection%20and%20inner%20strength&tone=fierce&placement=upper%20arm&size=large&color=black_and_gray",
       generated: true,
     }
   }

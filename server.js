@@ -150,31 +150,47 @@ async function generateTattooImage(prompt) {
 }
 
 function buildTattooPrompt(params) {
-  const { style, meaning, tone, elements, color_preference } = params;
+  const { style, meaning, tone, elements, placement, color_preference } = params;
 
   const styleInfo = TATTOO_STYLES[style] || TATTOO_STYLES.minimalist;
 
   const colorInstruction = color_preference === "black_and_gray"
-    ? "black and gray ink only, no color"
+    ? "black and gray ink"
     : color_preference === "full_color"
-    ? "vibrant full color"
-    : "limited color palette with black outlines";
+    ? "vibrant full color ink"
+    : "limited color palette";
+
+  // Map placement to body description
+  const placementMap = {
+    "forearm": "on inner forearm",
+    "upper arm": "on upper arm",
+    "shoulder": "on shoulder",
+    "back": "on back",
+    "chest": "on chest",
+    "ribs": "on ribcage",
+    "leg": "on leg",
+    "thigh": "on thigh",
+    "calf": "on calf",
+    "ankle": "on ankle",
+    "wrist": "on wrist",
+    "hand": "on hand",
+    "neck": "on neck",
+    "behind ear": "behind ear",
+  };
+  const bodyLocation = placementMap[placement] || "on skin";
 
   return [
-    "Hand-drawn tattoo design on white paper,",
-    `${styleInfo.name} tattoo style,`,
+    `Beautiful ${styleInfo.name} tattoo ${bodyLocation},`,
     `${tone || "balanced"} mood,`,
     meaning ? `representing ${meaning},` : "",
     elements ? `featuring ${elements},` : "",
     `${colorInstruction},`,
     styleInfo.keywords + ",",
-    "tattoo flash sheet illustration,",
-    "artist sketch on blank white paper,",
-    "centered artwork,",
-    "clean white background,",
-    "no skin visible, no body parts,",
-    "high contrast, crisp lines,",
-    "professional tattoo artist quality"
+    "professional tattoo photography,",
+    "high quality editorial photo,",
+    "natural lighting,",
+    "sharp detail,",
+    "beautiful composition"
   ].filter(Boolean).join(" ");
 }
 
