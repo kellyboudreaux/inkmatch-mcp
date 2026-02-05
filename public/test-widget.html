@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InkMatch Widget Test</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a1a;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .test-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 {
+    color: #e5e5e5;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    color: #a3a3a3;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+  }
+  .test-card {
+    background: #2a2a2a;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .test-card-header {
+    padding: 12px 16px;
+    background: #333;
+    border-bottom: 1px solid #404040;
+  }
+  .test-card-header h3 {
+    color: #e5e5e5;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .test-card-header p {
+    color: #a3a3a3;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+    display: block;
+  }
+  .instructions {
+    margin-top: 24px;
+    padding: 16px;
+    background: #2a2a2a;
+    border-radius: 12px;
+    color: #a3a3a3;
+    font-size: 13px;
+  }
+  .instructions h4 {
+    color: #e5e5e5;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .instructions code {
+    background: #404040;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #a78bfa;
+  }
+  .instructions ul {
+    margin-left: 20px;
+    margin-top: 8px;
+  }
+  .instructions li {
+    margin-bottom: 4px;
+  }
+  .controls {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #2a2a2a;
+    border-radius: 12px;
+  }
+  .controls h3 {
+    color: #e5e5e5;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  button {
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    transition: background 0.15s;
+  }
+  button:hover {
+    background: #6d28d9;
+  }
+</style>
+</head>
+<body>
+<div class="test-container">
+  <h1>InkMatch Widget Test</h1>
+  <p class="subtitle">Preview the ChatGPT widget with sample data</p>
+
+  <div class="controls">
+    <h3>Test Different Scenarios</h3>
+    <button onclick="loadScenario('minimalist')">Minimalist + Image</button>
+    <button onclick="loadScenario('japanese')">Japanese (No Image)</button>
+    <button onclick="loadScenario('watercolor')">Watercolor + Image</button>
+    <button onclick="loadScenario('blackwork')">Blackwork + Image</button>
+  </div>
+
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-card-header">
+        <h3 id="scenario-title">Minimalist Style</h3>
+        <p id="scenario-desc">With generated image preview</p>
+      </div>
+      <iframe id="widget-frame" src="about:blank"></iframe>
+    </div>
+  </div>
+
+  <div class="instructions">
+    <h4>Testing Notes</h4>
+    <ul>
+      <li>The widget receives data via <code>window.openai.toolOutput</code></li>
+      <li>In ChatGPT, this is populated automatically when the tool is invoked</li>
+      <li>This test page simulates that with sample data</li>
+      <li>Click "Get 5 Full Designs" to verify the URL params are passed correctly</li>
+      <li>Test with and without <code>image_url</code> to see both states</li>
+    </ul>
+
+    <h4 style="margin-top: 16px;">Local Development</h4>
+    <ul>
+      <li>Run server: <code>node server.js</code></li>
+      <li>Set <code>REPLICATE_API_TOKEN</code> env var for real image generation</li>
+      <li>MCP endpoint: <code>http://localhost:8787/mcp</code></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Sample data for different scenarios
+const SCENARIOS = {
+  minimalist: {
+    title: "Minimalist Style",
+    desc: "With generated image preview",
+    data: {
+      style: "Minimalist",
+      style_key: "minimalist",
+      meaning: "New beginnings and personal growth",
+      tone: "soft",
+      elements: "geometric plant, simple lines, small leaf",
+      placement: "forearm",
+      size: "small",
+      color_preference: "black_and_gray",
+      // Using a placeholder image - in production this would be from Replicate
+      image_url: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop",
+      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=minimalist&meaning=New%20beginnings%20and%20personal%20growth&tone=soft&placement=forearm&size=small&color=black_and_gray",
+      generated: true,
+    }
+  },
+  japanese: {
+    title: "Japanese / Irezumi",
+    desc: "Fallback state - no image generated",
+    data: {
+      style: "Japanese / Irezumi",
+      style_key: "japanese",
+      meaning: "Strength and perseverance through adversity",
+      tone: "bold",
+      elements: "koi fish swimming upstream, waves, cherry blossoms",
+      placement: "upper arm",
+      size: "large",
+      color_preference: "full_color",
+      image_url: null,
+      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=japanese&meaning=Strength%20and%20perseverance&tone=bold&placement=upper%20arm&size=large&color=full_color",
+      generated: false,
+    }
+  },
+  watercolor: {
+    title: "Watercolor Style",
+    desc: "Soft, artistic feel with color splashes",
+    data: {
+      style: "Watercolor",
+      style_key: "watercolor",
+      meaning: "Freedom and creativity",
+      tone: "playful",
+      elements: "abstract butterfly, color splashes, soft edges",
+      placement: "shoulder",
+      size: "medium",
+      color_preference: "full_color",
+      image_url: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=400&fit=crop",
+      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=watercolor&meaning=Freedom%20and%20creativity&tone=playful&placement=shoulder&size=medium&color=full_color",
+      generated: true,
+    }
+  },
+  blackwork: {
+    title: "Blackwork",
+    desc: "Bold, graphic black ink design",
+    data: {
+      style: "Blackwork",
+      style_key: "blackwork",
+      meaning: "Protection and inner strength",
+      tone: "fierce",
+      elements: "geometric wolf, tribal patterns, bold shapes",
+      placement: "chest",
+      size: "large",
+      color_preference: "black_and_gray",
+      image_url: "https://images.unsplash.com/photo-1590246814883-57c511e76bf2?w=400&h=400&fit=crop",
+      inkmatch_url: "https://inkmatch.io?ref=chatgpt&style=blackwork&meaning=Protection%20and%20inner%20strength&tone=fierce&placement=chest&size=large&color=black_and_gray",
+      generated: true,
+    }
+  }
+};
+
+function loadScenario(scenarioKey) {
+  const scenario = SCENARIOS[scenarioKey];
+  const iframe = document.getElementById('widget-frame');
+
+  // Update header
+  document.getElementById('scenario-title').textContent = scenario.title;
+  document.getElementById('scenario-desc').textContent = scenario.desc;
+
+  // Fetch the widget HTML
+  fetch('inkmatch-widget.html')
+    .then(res => res.text())
+    .then(html => {
+      // Inject the mock openai object before the script runs
+      const mockScript = `
+        <script>
+          window.openai = {
+            toolOutput: ${JSON.stringify(scenario.data)},
+            widgetState: {},
+            setWidgetState: function(state) {
+              this.widgetState = state;
+              console.log('Widget state:', state);
+            }
+          };
+        <\/script>
+      `;
+
+      // Insert mock script right before </head>
+      const modifiedHtml = html.replace('</head>', mockScript + '</head>');
+
+      iframe.srcdoc = modifiedHtml;
+    });
+}
+
+// Load default scenario
+loadScenario('minimalist');
+</script>
+</body>
+</html>

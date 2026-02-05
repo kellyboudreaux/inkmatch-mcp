@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #f8f9fa;
+    --border: #e2e5e9;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --accent: #7c3aed;
+    --accent-hover: #6d28d9;
+    --accent-light: #ede9fe;
+    --tag-bg: #f3f4f6;
+    --tag-text: #374151;
+    --radius: 12px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a1a;
+      --surface: #2a2a2a;
+      --border: #404040;
+      --text-primary: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #737373;
+      --accent: #a78bfa;
+      --accent-hover: #c4b5fd;
+      --accent-light: #2e1065;
+      --tag-bg: #374151;
+      --tag-text: #d1d5db;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 16px;
+  }
+
+  .widget-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .header .subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* Image Preview */
+  .preview-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .preview-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .preview-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--accent-light) 0%, var(--surface) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    gap: 12px;
+  }
+
+  .preview-placeholder svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.5;
+  }
+
+  .preview-placeholder p {
+    font-size: 14px;
+    text-align: center;
+    padding: 0 24px;
+  }
+
+  /* Preference Tags */
+  .preferences {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .pref-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .tag.style {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: var(--shadow);
+  }
+
+  .cta-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .cta-button:active {
+    transform: translateY(0);
+  }
+
+  .cta-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cta-subtext {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .cta-subtext .price {
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* Features list */
+  .features {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+  }
+
+  .feature-item svg {
+    width: 16px;
+    height: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .footer a {
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+
+  /* Loading state */
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 12px; }
+    .cta-button { padding: 12px 20px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    const CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+    const ARROW_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>`;
+    const SPARKLE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>`;
+    const IMAGE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>`;
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function formatColorPref(pref) {
+      if (pref === "black_and_gray") return "Black & Gray";
+      if (pref === "full_color") return "Full Color";
+      if (pref === "limited_palette") return "Limited Palette";
+      return pref;
+    }
+
+    function capitalizeFirst(str) {
+      if (!str) return "";
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function render() {
+      const root = document.getElementById("root");
+      const data = window.openai?.toolOutput;
+
+      if (!data) {
+        root.innerHTML = `
+          <div class="loading">
+            <div class="spinner"></div>
+            <p>Preparing your tattoo preview...</p>
+          </div>
+        `;
+        return;
+      }
+
+      const {
+        style,
+        meaning,
+        tone,
+        elements,
+        placement,
+        size,
+        color_preference,
+        image_url,
+        inkmatch_url,
+        generated
+      } = data;
+
+      // Build preference tags
+      const tags = [];
+      if (style) tags.push({ label: style, isStyle: true });
+      if (tone) tags.push({ label: capitalizeFirst(tone) });
+      if (color_preference) tags.push({ label: formatColorPref(color_preference) });
+      if (placement) tags.push({ label: capitalizeFirst(placement) });
+      if (size) tags.push({ label: capitalizeFirst(size) });
+
+      let html = `
+        <div class="widget-container">
+          <div class="header">
+            <h2>${SPARKLE_SVG} Your Tattoo Preview</h2>
+            <p class="subtitle">${meaning ? `"${escapeHtml(meaning)}"` : "Personalized design concept"}</p>
+          </div>
+
+          <div class="preview-container">
+            ${image_url ? `
+              <img class="preview-image" src="${escapeHtml(image_url)}" alt="AI-generated tattoo design preview" />
+            ` : `
+              <div class="preview-placeholder">
+                ${IMAGE_SVG}
+                <p>Your preferences have been captured. Visit InkMatch to see your personalized designs.</p>
+              </div>
+            `}
+            ${tags.length > 0 ? `
+              <div class="preferences">
+                <div class="pref-label">Your Preferences</div>
+                <div class="tags">
+                  ${tags.map(t => `<span class="tag ${t.isStyle ? 'style' : ''}">${escapeHtml(t.label)}</span>`).join("")}
+                </div>
+              </div>
+            ` : ""}
+          </div>
+
+          <div class="cta-section">
+            <a class="cta-button" href="${escapeHtml(inkmatch_url)}" target="_blank" rel="noopener">
+              Get 5 Full Designs ${ARROW_SVG}
+            </a>
+            <p class="cta-subtext">
+              Just <span class="price">$0.99</span> · Includes AR Try-On
+            </p>
+          </div>
+
+          <div class="features">
+            <div class="feature-item">${CHECK_SVG} 5 unique AI-generated designs</div>
+            <div class="feature-item">${CHECK_SVG} AR try-on to see it on your body</div>
+            <div class="feature-item">${CHECK_SVG} Download & share with your artist</div>
+            <div class="feature-item">${CHECK_SVG} No subscription · One-time purchase</div>
+          </div>
+
+          <div class="footer">
+            Preview generated by InkMatch · <a href="https://inkmatch.io/privacy" target="_blank">Privacy Policy</a>
+          </div>
+        </div>
+      `;
+
+      root.innerHTML = html;
+    }
+
+    // Initial render
+    render();
+
+    // Re-render when data arrives
+    window.addEventListener("openai:set_globals", () => {
+      render();
+    });
+  </script>
+</body>
+</html>
